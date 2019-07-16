@@ -98,29 +98,3 @@ class _concertDataHome extends State<ConcertDataHome> {
   }
 }
 
-class ConcertData {
-  final String eventDateName;
-  final String name;
-  final String dateOfShow;
-  final String userGroupName;
-  final String eventHallName;
-  final String imageSource;
-
-  ConcertData(
-      {this.eventDateName,
-      this.name,
-      this.dateOfShow,
-      this.userGroupName,
-      this.eventHallName,
-      this.imageSource});
-
-  factory ConcertData.fromJson(Map<String, dynamic> json) {
-    return ConcertData(
-        eventDateName: json['eventDateName'],
-        name: json['name'],
-        dateOfShow: json['dateOfShow'],
-        userGroupName: json['userGroupName'],
-        eventHallName: json['eventHallName'],
-        imageSource: json['imageSource']);
-  }
-}
