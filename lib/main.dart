@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
+import './screens/details.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
@@ -40,6 +41,7 @@ class _concertDataHome extends State<ConcertDataHome> {
         body: ListView.builder(
           itemCount: data == null ? 0 : data.length,
           itemBuilder: (BuildContext context, int index) {
+            String dataUri = "http://www.mbl.is";
             return new Container(
                 margin: EdgeInsets.all(5.0),
                 child: Padding(
@@ -48,34 +50,44 @@ class _concertDataHome extends State<ConcertDataHome> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
-                          Card(
-                              child: Column(
-                                  crossAxisAlignment:
+                          GestureDetector(
+                              child: Card(
+                                  child: Column(
+                                      crossAxisAlignment:
                                       CrossAxisAlignment.stretch,
-                                  children: <Widget>[
-                                Image.network(data[index]["imageSource"]),
-                                Padding(
-                                    padding: EdgeInsets.only(top: 5.0),
-                                    child: InkWell(
-                                      splashColor: Colors.deepOrange,
-                                      child: Padding(
-                                          padding: EdgeInsets.only(left: 20.0),
-                                          child: Text(
-                                              data[index]["eventDateName"],
-                                              style: TextStyle(
-                                                  fontWeight:
-                                                      FontWeight.w700))),
-                                    )),
-                                Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 20.0, bottom: 15.0),
-                                    child: Text(
-                                      DateFormat('dd/MM yyyy, kk:mm').format(
-                                          DateTime.parse(
-                                              data[index]["dateOfShow"])),
-                                      style: TextStyle(color: Colors.white30),
-                                    ))
-                              ]))
+                                      children: <Widget>[
+                                        Image.network(data[index]["imageSource"]),
+                                        Padding(
+                                            padding: EdgeInsets.only(top: 5.0),
+                                            child: InkWell(
+                                              splashColor: Colors.deepOrange,
+                                              child: Padding(
+                                                  padding: EdgeInsets.only(left: 20.0),
+                                                  child: Text(
+                                                      data[index]["eventDateName"],
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                          FontWeight.w700))),
+                                            )),
+                                        Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 20.0, bottom: 15.0),
+                                            child: Text(
+                                              DateFormat('dd/MM yyyy, kk:mm').format(
+                                                  DateTime.parse(
+                                                      data[index]["dateOfShow"])),
+                                              style: TextStyle(color: Colors.white30),
+                                            )),
+                                      ])
+                              ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => Details(data: data[index]))
+                              );
+                            },
+                          ),
+
                         ])));
           },
         ));
@@ -97,4 +109,3 @@ class _concertDataHome extends State<ConcertDataHome> {
     return "Success";
   }
 }
-

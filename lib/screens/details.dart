@@ -1,0 +1,57 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+class Details extends StatefulWidget {
+  var data;
+
+  Details({Key key, @required this.data}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return _Details(data);
+  }
+}
+
+class _Details extends State<Details> {
+  var recData;
+
+  _Details(this.recData);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(title: Text(recData["name"])),
+        body: ListView(
+          children: <Widget>[
+            Card(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Image.network(recData["imageSource"]),
+                Padding(
+                    padding: EdgeInsets.only(left: 30.0),
+                    child: Text(recData["eventDateName"], style: TextStyle(
+                        fontWeight:
+                        FontWeight.w700))),
+                Padding(
+                    padding: EdgeInsets.only(left: 30.0, top: 10.0),
+                    child: Text(
+                      DateFormat('dd/MM yyyy, kk:mm')
+                          .format(DateTime.parse(recData["dateOfShow"])),
+                    )),
+                Padding(
+                    padding: EdgeInsets.only(left: 30.0, top: 10.0),
+                    child: Text(
+                    'Aðstandendur : ' + recData["userGroupName"]
+                    )),
+                Padding(
+                    padding: EdgeInsets.only(left: 30.0, top: 10.0, bottom: 20.0),
+                    child: Text(
+                        'Staður : ' + recData["eventHallName"]
+                    ))
+              ],
+            ))
+          ],
+        ));
+  }
+}
